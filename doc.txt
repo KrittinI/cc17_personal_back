@@ -25,3 +25,88 @@ RESPONSE
     400 message
     401 message
     500 message
+
+%%%%%%%%%%%%% USER %%%%%%%%%%%%%%%%%%%%
+
+--- GET USER PROFILE
+GET /users/:userId
+HEADER
+    Authorization: Bearer accessToken
+RESPONSE
+    200 userdata
+    400 message
+    401 message
+    500 message
+
+--- EDIT USER PROFILE
+PATCH /users
+HEADER
+    Authorization: Bearer accessToken
+BODY
+    update data
+RESPONSE
+    200 update data
+    400 message
+    500 message
+
+%%%%%%%%%%%%% COURT %%%%%%%%%%%%%%%%%%%%
+
+--- CREATE COURT
+POST /courts
+HEADER
+    Authorization: Bearer accessToken
+BODY
+    name,
+    location?,
+    rateperhours?,
+    amount?,
+    detail,
+    courtImage?,
+    mobile
+RESPONSE
+    200 message
+    400 message
+    401 message
+    500 message
+
+--- UPDATE COURT
+PATCH /courts
+HEADER
+    Authorization: Bearer accessToken
+BODY
+    name,
+    location?,
+    rateperhours?,
+    amount?,
+    detail,
+    courtImage?,
+    mobile
+RESPONSE
+    200 message
+    400 message
+    401 message
+    500 message
+
+--- GET ALL COURT
+GET /courts
+HEADER
+    Authorization: Bearer accessToken
+RESPONSE
+    200 courts []
+    400 message
+    401 message
+    500 message
+
+--- GET COURT id
+GET /courts/:courtId
+HEADER
+    Authorization: Bearer accessToken
+RESPONSE
+    200 courtsData
+    400 message
+    401 message
+    500 message
+    
+
+%%%%%%%%%%%%% EVENT %%%%%%%%%%%%%%%%%%%%
+
