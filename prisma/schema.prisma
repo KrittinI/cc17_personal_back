@@ -34,7 +34,7 @@ model User {
 
 model Court {
   id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(100)
+  name        String   @unique @db.VarChar(100)
   location    String?  @db.VarChar(191)
   ratePerHour Decimal? @map("rate_per_hour") @db.Decimal(6, 2)
   amountCourt Int?     @map("amount_court")
@@ -84,14 +84,14 @@ model Event {
   name          String?     @db.VarChar(100)
   courtId       Int         @map("court_id")
   eventDay      DateTime    @map("event_day") @db.DateTime(3)
-  evnetDuration String      @map("event_duration") @db.VarChar(20)
-  status        Eventstatus
+  evnetDuration String?     @map("event_duration") @db.VarChar(20)
+  status        Eventstatus @default(OPENED)
   creatorId     Int         @map("creator_id")
-  closingTime   DateTime    @map("closing_time") @db.DateTime(3)
+  closingTime   DateTime?   @map("closing_time") @db.DateTime(3)
   limit         Int?
   payFirst      Boolean     @default(false) @map("pay_first")
   createdAt     DateTime    @default(now()) @map("created_at")
-  updatedAt     DateTime    @default(now()) @updatedAt @map("updatedAt")
+  updatedAt     DateTime    @default(now()) @updatedAt @map("updated_at")
 
   users         User            @relation(fields: [creatorId], references: [id])
   courts        Court           @relation(fields: [courtId], references: [id])
@@ -131,7 +131,7 @@ enum Billstatus {
 model BillPrice {
   id        Int        @id @default(autoincrement())
   billId    Int        @map("bill_id")
-  status    Billstatus
+  status    Billstatus @default(PENDING)
   price     Decimal    @db.Decimal(8, 2)
   detail    String?    @db.Text
   createdAt DateTime   @default(now()) @map("created_at")

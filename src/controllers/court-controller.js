@@ -31,7 +31,6 @@ courtController.createCourt = async (req, res, next) => {
 courtController.getAllCourt = async (req, res, next) => {
     try {
         const allCourt = await courtService.getAllCourt()
-        console.log(allCourt);
         res.status(200).json({ courts: allCourt })
     } catch (error) {
         next(error)

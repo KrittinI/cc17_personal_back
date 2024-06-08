@@ -16,7 +16,7 @@ RESPONSE
     400 message
     500 message
 
---- GETME
+--- GET ME
 GET /auth/me
 HEADER
     Authorization: Bearer accessToken
@@ -97,7 +97,7 @@ RESPONSE
     401 message
     500 message
 
---- GET COURT id
+--- GET COURT BY ID
 GET /courts/:courtId
 HEADER
     Authorization: Bearer accessToken
@@ -107,6 +107,68 @@ RESPONSE
     401 message
     500 message
     
+--- GET COURT BY RANGE PRICE
+GET /courts/:min/:max
+HEADER
+    Authorization: Bearer accessToken
+RESPONSE
+    200 courtsData
+    400 message
+    401 message
+    500 message
 
 %%%%%%%%%%%%% EVENT %%%%%%%%%%%%%%%%%%%%
 
+--- CREATE EVENT
+HEADER
+    Authorization: Bearer accessToken
+ฺBODY
+    name? default courtname + username,
+    courtId,
+    eventday,
+    eventduration?,
+    creatorId from  auth user,
+    limit?
+
+RESPONSE
+    200 data
+    400 message
+    401 message
+    500 message
+
+--- UPDATE EVENT
+HEADER
+    Authorization: Bearer accessToken
+BODY
+    data
+RESPONSE
+    200 data
+    400 message
+    401 message
+    500 message
+--- GET ALL EVENT
+HEADER
+    Authorization: Bearer accessToken
+RESPONSE
+    200 data
+    400 message
+    401 message
+    500 message
+
+--- GET EVENT BY ID
+HEADER
+    Authorization: Bearer accessToken
+RESPONSE
+    200 data
+    400 message
+    401 message
+    500 message
+
+--- GET EVENT BY DATE
+--- DELETE EVENT
+
+%%%%%%%%%%%%% RELATION %%%%%%%%%%%%%%%%%%%%
+
+--- CREATE RELATION (JOIN EVENT)
+--- REMOVE RELATION (UNJOIN EVENT)
+--- REMOVE RELATION (EVENT CANCEL)
