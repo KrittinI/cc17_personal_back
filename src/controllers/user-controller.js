@@ -11,7 +11,7 @@ userController.getUserById = async (req, res, next) => {
             createError(400, "user not found")
         }
         delete exisitUser.password
-        res.status(200).json({ profileUser: exisitUser })
+        res.status(200).json({ userProfile: exisitUser })
     } catch (error) {
         next(error)
     }

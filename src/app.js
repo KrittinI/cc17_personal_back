@@ -19,7 +19,7 @@ app.use(express.json())
 
 app.use('/auth', authRouter)
 app.use('/users', authenticate, userRouter)
-app.use('/courts', authenticate, courtRouter)
+app.use('/courts', courtRouter)
 app.use('/events', authenticate, eventRouter)
 
 app.use(notFoundMiddleware)

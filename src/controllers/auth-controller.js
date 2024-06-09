@@ -52,11 +52,13 @@ authController.login = async (req, res, next) => {
     try {
         const existUser = await userService.findExistUser(req.body)
         if (!existUser) {
-            createError(400, "user not found")
+            return next(createError(400, "user not found"))
+            // createError(400, "user not found")
         }
         const isMatch = await bcrypt.compare(req.body.password, existUser.password)
         if (!isMatch) {
-            createError(400, "username, email, mobile or password is not correct")
+            // createError(400, "username, email, mobile or password is not correct")
+            return next(createError(400, "incorrect username, email, mobile or password"))
         }
 
         const accessToken = jwt.sign({ id: existUser.id }, process.env.JWT_SECRET, { expiresIn: '7d' })

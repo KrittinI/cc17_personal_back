@@ -15,6 +15,8 @@ courtController.createCourt = async (req, res, next) => {
         if (isNaN(req.body.mobile)) {
             return createError(400, "invalid mobile")
         }
+        req.body.ratePerHour = Number(req.body.ratePerHour)
+        req.body.amountCourt = Number(req.body.amountCourt)
 
         const existCourt = await courtService.findExistCourt(req.body.name)
         if (existCourt) {
@@ -22,7 +24,7 @@ courtController.createCourt = async (req, res, next) => {
         }
 
         await courtService.createCourt(req.body)
-        res.json({ message: "adding court done" })
+        res.status(201).json({ message: "adding court done" })
     } catch (error) {
         next(error)
     }
