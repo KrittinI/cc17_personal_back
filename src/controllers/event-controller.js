@@ -53,6 +53,17 @@ eventController.getEventById = async (req, res, next) => {
 //         next(error)
 //     }
 // }
+eventController.getEventByCourtId = async (req, res, next) => {
+    try {
+        const events = await eventService.getEventByCourtId(+req.params.courtId)
+        if (!events) {
+            return createError(400, "no event in this court")
+        }
+        res.status(200).json({ events })
+    } catch (error) {
+        next(error)
+    }
+}
 
 eventController.updateEvent = async (req, res, next) => {
     try {
