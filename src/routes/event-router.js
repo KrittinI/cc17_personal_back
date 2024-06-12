@@ -10,7 +10,7 @@ eventRouter.get('/:eventId', eventController.getEventById)
 eventRouter.get('/court/:courtId', eventController.getEventByCourtId)
 eventRouter.get('/user/:userId', eventController.getEventByUserId)
 eventRouter.patch('/:eventId', eventController.updateEvent)
-// eventRouter.delete('/:eventId', eventController.deleteEvent)
+eventRouter.delete('/:eventId', eventController.deleteEvent)
 
 
 module.exports = eventRouter

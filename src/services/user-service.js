@@ -8,6 +8,7 @@ const userFiltered = {
     email: true,
     mobile: true,
     profileImage: true,
+    isAdmin: true
 }
 
 
