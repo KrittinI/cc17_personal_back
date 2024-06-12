@@ -19,7 +19,8 @@ eventController.createEvent = async (req, res, next) => {
         }
         data.creatorId = req.user.id
         await eventService.createEvent(data)
-        res.json({ message: data })
+        const events = await eventService.findEventByCourtName(data.name)
+        res.status(201).json({ events })
     } catch (error) {
         next(error)
     }
@@ -64,10 +65,21 @@ eventController.getEventByCourtId = async (req, res, next) => {
         next(error)
     }
 }
+eventController.getEventByUserId = async (req, res, next) => {
+    try {
+        const events = await eventService.getEventByUserId(+req.params.userId)
+        if (!events) {
+            return createError(400, "no event in this court")
+        }
+        res.status(200).json({ events })
+    } catch (error) {
+        next(error)
+    }
+}
 
 eventController.updateEvent = async (req, res, next) => {
     try {
-        const selectEvent = await eventService.getEventById(+req.params.eventId)
+        const selectEvent = await eventService.findEventById(+req.params.eventId)
         if (!selectEvent) {
             return createError(400, "event not found")
         }

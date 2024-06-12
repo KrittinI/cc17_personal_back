@@ -8,6 +8,7 @@ eventRouter.get('/', eventController.getAllEvent)
 eventRouter.get('/:eventId', eventController.getEventById)
 // eventRouter.get('/:date', eventController.getEventByDate)
 eventRouter.get('/court/:courtId', eventController.getEventByCourtId)
+eventRouter.get('/user/:userId', eventController.getEventByUserId)
 eventRouter.patch('/:eventId', eventController.updateEvent)
 // eventRouter.delete('/:eventId', eventController.deleteEvent)
 

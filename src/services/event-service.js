@@ -48,10 +48,49 @@ eventService.getEventByCourtId = (courtId) => prisma.event.findMany({
         }
     }
 })
+eventService.getEventByUserId = (creatorId) => prisma.event.findMany({
+    where: { creatorId },
+    include: {
+        users: {
+            select: {
+                userName: true
+            }
+        },
+        courts: {
+            select: {
+                name: true
+            }
+        }
+    }
+})
+
+eventService.findEventByCourtName = (name) => prisma.event.findFirst({
+    where: { name },
+    include: {
+        users: {
+            select: {
+                userName: true,
+                mobile: true,
+                profileImage: true
+            }
+        },
+        courts: {
+            select: {
+                name: true,
+                location: true,
+                courtImage: true
+            }
+        }
+    }
+})
 
 // eventService.getEventByDate = (date) => prisma.event.findFirst({
 //     where: { eventDay: date }
 // })
+
+eventService.findEventById = (id) => prisma.event.findFirst({
+    where: { id }
+})
 
 eventService.updateEvent = (id, data) => prisma.event.updateMany({
     where: { id },
