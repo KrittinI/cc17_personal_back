@@ -35,6 +35,13 @@ relationService.getPlayerFromEventId = eventId => prisma.eventrelation.findMany(
     }
 })
 
+relationService.countPlayerInEvent = (eventId) => prisma.eventrelation.aggregate({
+    where: { eventId },
+    _count: {
+        id: true
+    }
+})
+
 relationService.getEventByUserId = playerId => prisma.eventrelation.findMany({
     where: { playerId },
     include: {

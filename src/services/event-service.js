@@ -8,7 +8,8 @@ eventService.getAllEvent = () => prisma.event.findMany({
     include: {
         users: {
             select: {
-                userName: true
+                userName: true,
+                profileImage: true
             }
         },
         courts: {
@@ -26,7 +27,8 @@ eventService.getEventById = (id) => prisma.event.findFirst({
             select: {
                 userName: true,
                 mobile: true,
-                profileImage: true
+                profileImage: true,
+                id: true
             }
         },
         courts: {
@@ -53,7 +55,8 @@ eventService.getEventByUserId = (creatorId) => prisma.event.findMany({
     include: {
         users: {
             select: {
-                userName: true
+                userName: true,
+                profileImage: true
             }
         },
         courts: {

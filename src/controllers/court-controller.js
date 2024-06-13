@@ -5,7 +5,6 @@ const courtController = {}
 
 courtController.createCourt = async (req, res, next) => {
     try {
-
         if (!req.body.name && !req.body.mobile) {
             return createError(400, "invalid name or mobile")
         }
@@ -74,8 +73,12 @@ courtController.updateCourt = async (req, res, next) => {
         if (req.body.mobile && !req.body.mobile?.trim()) {
             createError(400, "court must have mobile")
         }
-        if (req.body.mobile && isNaN(req.body.mobile)) {
+        if (req.body.mobile && (isNaN(req.body.mobile) || req.body.mobile.length !== 10)) {
             return createError(400, "invalid mobile")
+        }
+        const existCourtName = await courtService.findExistCourt(req.body.name)
+        if (existCourtName.id !== +req.params.courtId) {
+            createError(400, "court name already exist")
         }
         const updateData = { ...foundCourt, ...req.body }
         await courtService.updateCourt(+req.params.courtId, updateData)

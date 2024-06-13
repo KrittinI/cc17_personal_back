@@ -18,6 +18,11 @@ relationController.createRealation = async (req, res, next) => {
         if (existRelation) {
             createError(400, "You already have relation with this event")
         }
+        const playerInEvent = await relationService.countPlayerInEvent(+req.params.eventId)
+        console.log(existEvent.limit, playerInEvent._count.id);
+        if (existEvent.limit <= playerInEvent._count.id) {
+            createError(400, "This event is already full")
+        }
         const data = { eventId: +req.params.eventId, playerId: req.user.id }
         await relationService.createRelation(data)
         res.status(201).json({ relations: data })
@@ -76,7 +81,7 @@ relationController.deleteRelationByCreator = async (req, res, next) => {
             createError(400, "Event not exist")
         }
         if (existEvent.creatorId !== req.user.id) {
-            createError(400, "No permission on this Event")
+            createError(403, "No permission on this Event")
         }
         const existRelation = await relationService.findRelation(+req.params.eventId, +req.params.userId)
         if (!existRelation) {
