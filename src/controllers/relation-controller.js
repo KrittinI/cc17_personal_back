@@ -19,8 +19,7 @@ relationController.createRealation = async (req, res, next) => {
             createError(400, "You already have relation with this event")
         }
         const playerInEvent = await relationService.countPlayerInEvent(+req.params.eventId)
-        console.log(existEvent.limit, playerInEvent._count.id);
-        if (existEvent.limit <= playerInEvent._count.id) {
+        if (existEvent.limit !== 0 && existEvent.limit <= playerInEvent._count.id) {
             createError(400, "This event is already full")
         }
         const data = { eventId: +req.params.eventId, playerId: req.user.id }

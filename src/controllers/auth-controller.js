@@ -2,6 +2,7 @@ const userService = require("../services/user-service");
 const createError = require("../utils/create-error");
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const uuid = require('uuid').v4
 
 const authController = {}
 
@@ -60,7 +61,6 @@ authController.login = async (req, res, next) => {
             // createError(400, "username, email, mobile or password is not correct")
             return next(createError(400, "incorrect username, email, mobile or password"))
         }
-
         const accessToken = jwt.sign({ id: existUser.id }, process.env.JWT_SECRET, { expiresIn: '7d' })
         res.status(200).json({ accessToken })
     } catch (error) {
@@ -70,6 +70,28 @@ authController.login = async (req, res, next) => {
 
 authController.getMe = (req, res, next) => {
     res.status(200).json({ user: req.user })
+}
+
+authController.verify = async (req, res, next) => {
+    // console.log("Query from", req.query.id);
+    const exisitUser = await userService.findUserById(+req.query.id)
+    // await userService.updateProfile(+req.query.id, { isAdmin: false })
+    console.log(exisitUser);
+    res.status(200).json({ user: req.user })
+}
+
+authController.preregister = async (req, res, next) => {
+    const register = req.body
+    register.password = await bcrypt.hash(register.password, 10)
+    console.log(register);
+    const id = uuid()
+    console.log(id);
+    const data = { [id]: register }
+    console.log(data);
+
+
+
+    res.status(200).json({ register: register })
 }
 
 module.exports = authController

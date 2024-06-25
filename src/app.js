@@ -10,6 +10,7 @@ const authenticate = require('./middlewares/authenticate')
 const courtRouter = require('./routes/court-route')
 const eventRouter = require('./routes/event-router')
 const relationRouter = require('./routes/relation-route')
+const proxy = require('./utils/proxy')
 
 const app = express()
 
@@ -18,6 +19,8 @@ app.use(morgan('dev'))
 
 app.use(express.json())
 
+
+// app.use(proxy)
 app.use('/auth', authRouter)
 app.use('/users', authenticate, userRouter)
 app.use('/courts', courtRouter)

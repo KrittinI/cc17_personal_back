@@ -16,6 +16,11 @@ eventService.getAllEvent = () => prisma.event.findMany({
             select: {
                 name: true
             }
+        },
+        _count: {
+            select: {
+                eventrelation: true
+            }
         }
     }
 })
